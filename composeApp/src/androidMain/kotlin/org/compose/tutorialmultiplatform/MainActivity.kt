@@ -3,15 +3,9 @@ package org.compose.tutorialmultiplatform
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
-import androidx.compose.material.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.tooling.preview.Preview
-import org.compose.tutorialmultiplatform.ui.PeopleListView
-import org.compose.tutorialmultiplatform.ui.RoomList
-import org.compose.tutorialmultiplatform.viewmodels.MainViewModel
+import io.ktor.client.engine.okhttp.OkHttp
+import org.compose.tutorialmultiplatform.data.api.ApiClient
+import org.compose.tutorialmultiplatform.data.api.createHttpClient
 
 
 class MainActivity : ComponentActivity() {
@@ -19,25 +13,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
 
         setContent {
-            App()
+            App(client = ApiClient(createHttpClient(OkHttp.create())))
         }
     }
-}
-
-@Composable
-fun App() {
-    val viewModel = getViewModel<MainViewModel>()
-
-    MaterialTheme {
-        Surface(modifier = Modifier.fillMaxSize(), color = MaterialTheme.colors.background) {
-            PeopleListView(viewModel = viewModel)
-            RoomList(viewModel = viewModel)
-        }
-    }
-}
-
-@Preview
-@Composable
-fun AppAndroidPreview() {
-    App()
 }
