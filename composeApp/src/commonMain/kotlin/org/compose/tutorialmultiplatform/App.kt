@@ -25,9 +25,9 @@ fun App(client: ApiClient) {
         var isLoading by remember { mutableStateOf(false) }
         var errorMessage by remember { mutableStateOf<NetworkError?>(null) }
         var resultMessage by remember { mutableStateOf<String?>(null) }
+
         val scope = rememberCoroutineScope()
 
-        // Function to fetch data
         fun fetchData() {
             scope.launch {
                 isLoading = true
@@ -66,12 +66,10 @@ fun App(client: ApiClient) {
                 }
             }
 
-            // Show error message if any
             errorMessage?.let {
                 Text(text = "Error: $it", color = Color.Red)
             }
 
-            // Show result message
             resultMessage?.let {
                 Text(text = it, color = Color.Green)
             }
